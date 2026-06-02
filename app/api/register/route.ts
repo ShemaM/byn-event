@@ -136,7 +136,7 @@ export async function POST(req: NextRequest) {
   try {
     await Promise.all([
       transporter.sendMail({
-        from: `"BYN Kenya" <${process.env.GMAIL_USER}>`,
+        from: `"Banyamulenge Youth Network Kenya" <${process.env.GMAIL_USER}>`,
         to: email,
         subject: 'Registration Confirmed — BYN Kenya Youth Get-Together, July 4',
         html: confirmationHtml,
