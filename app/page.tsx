@@ -179,10 +179,13 @@ export default function RegistrationPage() {
             ].map(({ n, label }, i, arr) => (
               <div key={n} className="flex items-center gap-3">
                 <div className="flex flex-col items-center gap-1">
-                  <div className="w-8 h-8 rounded-full flex items-center justify-center text-[11px] font-black transition-all"
+                  <div
+                    className="w-8 h-8 rounded-full flex items-center justify-center text-[11px] font-black transition-all"
+                    onClick={() => { if (n < step) { setStep(n); window.scrollTo({ top: 0, behavior: 'smooth' }) } }}
                     style={{
                       background: step > n ? '#F5C518' : step === n ? '#ffffff' : 'rgba(255,255,255,0.15)',
                       color: step >= n ? '#1B4FBB' : 'rgba(255,255,255,0.4)',
+                      cursor: n < step ? 'pointer' : 'default',
                     }}>
                     {step > n ? (
                       <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
