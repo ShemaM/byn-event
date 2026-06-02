@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import nodemailer from 'nodemailer'
+import { google } from 'googleapis'
 
 const transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -8,6 +9,25 @@ const transporter = nodemailer.createTransport({
     pass: process.env.GMAIL_APP_PASSWORD,
   },
 })
+
+async function appendToSheet(row: string[]) {
+  const auth = new google.auth.GoogleAuth({
+    credentials: {
+      client_email: process.env.GOOGLE_CLIENT_EMAIL,
+      private_key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
+    },
+    scopes: ['https://www.googleapis.com/auth/spreadsheets'],
+  })
+
+  const sheets = google.sheets({ version: 'v4', auth })
+
+  await sheets.spreadsheets.values.append({
+    spreadsheetId: process.env.GOOGLE_SHEET_ID,
+    range: 'Sheet1!A1',
+    valueInputOption: 'USER_ENTERED',
+    requestBody: { values: [row] },
+  })
+}
 
 export async function POST(req: NextRequest) {
   const data = await req.json()
@@ -32,6 +52,7 @@ export async function POST(req: NextRequest) {
   }
 
   const activitiesList = Array.isArray(activities) ? activities.join(', ') : activities || 'None selected'
+  const timestamp = new Date().toLocaleString('en-KE', { timeZone: 'Africa/Nairobi' })
 
   const confirmationHtml = `
 <!DOCTYPE html>
@@ -49,14 +70,14 @@ export async function POST(req: NextRequest) {
 
           <!-- Header -->
           <tr>
-            <td style="background:#0f1a2e;padding:36px 40px 28px;">
+            <td style="background:#1B4FBB;padding:36px 40px 28px;">
               <table cellpadding="0" cellspacing="0" style="margin-bottom:20px;">
                 <tr>
                   <td style="padding-right:14px;">
                     <img src="https://byn-event.vercel.app/logo.png" alt="BYN Kenya" width="52" height="52" style="display:block;border-radius:4px;" />
                   </td>
                   <td>
-                    <p style="margin:0;font-size:10px;font-weight:900;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.4);">Banyamulenge Youth Kenya</p>
+                    <p style="margin:0;font-size:10px;font-weight:900;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.4);">Banyamulenge Youth Network Kenya</p>
                     <p style="margin:2px 0 0;font-size:13px;color:rgba(255,255,255,0.6);">Event Registration</p>
                   </td>
                 </tr>
@@ -73,8 +94,7 @@ export async function POST(req: NextRequest) {
                 Hi <strong>${fullName}</strong>, your registration for the <strong>BYN Kenya Youth Get-Together</strong> is confirmed. We're glad you're coming.
               </p>
 
-              <!-- Details block -->
-              <table width="100%" cellpadding="0" cellspacing="0" style="background:#f8f8f5;border-left:3px solid #0f1a2e;margin:24px 0;">
+              <table width="100%" cellpadding="0" cellspacing="0" style="background:#f8f8f5;border-left:3px solid #1B4FBB;margin:24px 0;">
                 <tr>
                   <td style="padding:20px 24px;">
                     <p style="margin:0 0 14px;font-size:10px;font-weight:900;letter-spacing:0.18em;text-transform:uppercase;color:#999;">Event Details</p>
@@ -100,9 +120,9 @@ export async function POST(req: NextRequest) {
 
           <!-- Footer -->
           <tr>
-            <td style="background:#0f1a2e;padding:24px 40px;">
+            <td style="background:#1B4FBB;padding:24px 40px;">
               <p style="margin:0;font-size:12px;color:rgba(255,255,255,0.35);line-height:1.6;">
-                BYN Kenya — Banyamulenge Youth Network<br />
+                BYN Kenya — Banyamulenge Youth Network Kenya<br />
                 This is an automated confirmation. Please keep it for your records.
               </p>
             </td>
@@ -129,7 +149,8 @@ export async function POST(req: NextRequest) {
   <tr><td style="padding:6px 12px;background:#f0f0f0;font-weight:bold;">Dietary restrictions</td><td style="padding:6px 12px;">${dietaryRestrictions || '—'}</td></tr>
   <tr><td style="padding:6px 12px;background:#f0f0f0;font-weight:bold;">M-Pesa name</td><td style="padding:6px 12px;">${mpesaName}</td></tr>
   <tr><td style="padding:6px 12px;background:#f0f0f0;font-weight:bold;">M-Pesa phone</td><td style="padding:6px 12px;">${mpesaPhone}</td></tr>
-  <tr><td style="padding:6px 12px;background:#f0f0f0;font-weight:bold;">M-Pesa code</td><td style="padding:6px 12px;font-weight:bold;color:#0f1a2e;">${mpesaCode}</td></tr>
+  <tr><td style="padding:6px 12px;background:#f0f0f0;font-weight:bold;">M-Pesa code</td><td style="padding:6px 12px;font-weight:bold;color:#1B4FBB;">${mpesaCode}</td></tr>
+  <tr><td style="padding:6px 12px;background:#f0f0f0;font-weight:bold;">Submitted at</td><td style="padding:6px 12px;">${timestamp}</td></tr>
 </table>
 `
 
@@ -147,11 +168,25 @@ export async function POST(req: NextRequest) {
         subject: `New Registration: ${fullName} — M-Pesa ${mpesaCode}`,
         html: internalHtml,
       }),
+      appendToSheet([
+        timestamp,
+        fullName,
+        email,
+        organization || '',
+        currentPursuits,
+        expectedGains,
+        panelQuestions,
+        activitiesList,
+        dietaryRestrictions || '',
+        mpesaName,
+        mpesaPhone,
+        mpesaCode,
+      ]),
     ])
 
     return NextResponse.json({ success: true })
   } catch (err) {
-    console.error('Email error:', err)
-    return NextResponse.json({ error: 'Failed to send confirmation email.' }, { status: 500 })
+    console.error('Registration error:', err)
+    return NextResponse.json({ error: 'Failed to process registration.' }, { status: 500 })
   }
 }
