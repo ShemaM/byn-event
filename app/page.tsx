@@ -211,9 +211,14 @@ export default function RegistrationPage() {
             {/* Step 1 */}
             {step === 1 && (
               <>
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-1 h-6 bg-[#D72B2B]" />
-                  <p className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400">Step 1 — Basic Information</p>
+                <div className="mb-7">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-1 h-6 bg-[#D72B2B]" />
+                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400">Step 1 — Basic Information</p>
+                  </div>
+                  <p className="text-sm text-gray-500 leading-7">
+                    Tell us a little about yourself so we know who is coming. Your name and email are required — we will use them to send your confirmation and any event updates.
+                  </p>
                 </div>
                 <Field label="Full name" required>
                   <input type="text" value={form.fullName} onChange={(e) => set('fullName', e.target.value)}
@@ -238,9 +243,14 @@ export default function RegistrationPage() {
             {/* Step 2 */}
             {step === 2 && (
               <>
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-1 h-6 bg-[#F5C518]" />
-                  <p className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400">Step 2 — Networking &amp; Engagement</p>
+                <div className="mb-7">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-1 h-6 bg-[#F5C518]" />
+                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400">Step 2 — Networking &amp; Engagement</p>
+                  </div>
+                  <p className="text-sm text-gray-500 leading-7">
+                    This helps us understand who is in the room and make the conversations more meaningful. Share what you are working on, what you hope to take away, and what you would like to ask the panelists.
+                  </p>
                 </div>
                 <Field label="What are you currently studying or pursuing?" required>
                   <textarea value={form.currentPursuits} onChange={(e) => set('currentPursuits', e.target.value)}
@@ -295,9 +305,14 @@ export default function RegistrationPage() {
             {/* Step 3 */}
             {step === 3 && (
               <>
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-1 h-6 bg-[#1B4FBB]" />
-                  <p className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400">Step 3 — Contribution &amp; Consent</p>
+                <div className="mb-7">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-1 h-6 bg-[#1B4FBB]" />
+                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400">Step 3 — Event Contribution</p>
+                  </div>
+                  <p className="text-sm text-gray-500 leading-7">
+                    To ensure accessibility, a <strong className="text-gray-700">KES 500 per person</strong> contribution is requested to cover catering and refreshments, made possible by the organizing committee and sponsors. Please send your contribution to <strong className="text-gray-700">Kibonge Buhimba</strong> to secure your spot and aid in finalizing catering arrangements.
+                  </p>
                 </div>
 
                 {/* M-Pesa box */}
