@@ -83,7 +83,7 @@ export async function POST(req: NextRequest) {
                 </tr>
               </table>
               <h1 style="margin:0;font-size:26px;font-weight:800;color:#ffffff;line-height:1.2;">You're registered.</h1>
-              <p style="margin:8px 0 0;font-size:14px;color:rgba(255,255,255,0.55);">Youth Get-Together · July 4, 2026 · USIU-Africa, Nairobi</p>
+              <p style="margin:8px 0 0;font-size:14px;color:rgba(255,255,255,0.55);">Youth Get-Together · July 11, 2026 · USIU-Africa, Nairobi</p>
             </td>
           </tr>
 
@@ -99,7 +99,7 @@ export async function POST(req: NextRequest) {
                   <td style="padding:20px 24px;">
                     <p style="margin:0 0 14px;font-size:10px;font-weight:900;letter-spacing:0.18em;text-transform:uppercase;color:#999;">Event Details</p>
                     <table cellpadding="0" cellspacing="0">
-                      <tr><td style="font-size:13px;color:#666;padding:4px 0;padding-right:16px;">Date</td><td style="font-size:13px;color:#111;font-weight:600;">Saturday, July 4, 2026</td></tr>
+                      <tr><td style="font-size:13px;color:#666;padding:4px 0;padding-right:16px;">Date</td><td style="font-size:13px;color:#111;font-weight:600;">Saturday, July 11, 2026</td></tr>
                       <tr><td style="font-size:13px;color:#666;padding:4px 0;padding-right:16px;">Venue</td><td style="font-size:13px;color:#111;font-weight:600;">USIU-Africa, Nairobi</td></tr>
                       <tr><td style="font-size:13px;color:#666;padding:4px 0;padding-right:16px;">Your name</td><td style="font-size:13px;color:#111;font-weight:600;">${fullName}</td></tr>
                       <tr><td style="font-size:13px;color:#666;padding:4px 0;padding-right:16px;">M-Pesa ref</td><td style="font-size:13px;color:#111;font-weight:600;">${mpesaCode}</td></tr>
@@ -159,7 +159,7 @@ export async function POST(req: NextRequest) {
       transporter.sendMail({
         from: `"Banyamulenge Youth Network Kenya" <${process.env.GMAIL_USER}>`,
         to: email,
-        subject: 'Registration Confirmed — BYN Kenya Youth Get-Together, July 4',
+        subject: 'Registration Confirmed — BYN Kenya Youth Get-Together, July 11',
         html: confirmationHtml,
       }),
       transporter.sendMail({
@@ -182,6 +182,7 @@ export async function POST(req: NextRequest) {
         mpesaPhone,
         mpesaCode,
       ]),
+      // Column order: Timestamp | Full Name | Email | Organization | Current Pursuits | Expected Gains | Panelist Questions | Activities | Dietary Restrictions | M-Pesa Name | M-Pesa Phone | M-Pesa Code
     ])
 
     return NextResponse.json({ success: true })

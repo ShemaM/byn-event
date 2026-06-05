@@ -93,7 +93,7 @@ export default function RegistrationPage() {
             A confirmation email has been sent to <strong className="text-gray-800">{form.email}</strong>.
           </p>
           <p className="text-sm text-gray-500 leading-7">
-            See you on <strong className="text-gray-800">July 4, 2026</strong> at USIU-Africa, Nairobi.
+            See you on <strong className="text-gray-800">July 11, 2026</strong> at USIU-Africa, Nairobi.
           </p>
           <div className="mt-8 h-1.5 w-full" style={{ background: 'linear-gradient(to right, #D72B2B 33%, #F5C518 33%, #F5C518 66%, #1B4FBB 66%)' }} />
         </div>
@@ -126,8 +126,14 @@ export default function RegistrationPage() {
           <h1 className="text-4xl font-black text-white leading-tight mb-2">
             Youth<br />Get-Together
           </h1>
-          <p className="text-[#F5C518] font-black text-xl mb-1">July 4, 2026</p>
-          <p className="text-white/55 text-base mb-8">USIU-Africa, Nairobi</p>
+          <p className="text-[#F5C518] font-black text-xl mb-1">July 11, 2026</p>
+          <p className="text-white/55 text-base mb-4">USIU-Africa, Nairobi</p>
+
+          {/* Limited slots badge */}
+          <div className="inline-flex items-center gap-2 bg-[#D72B2B] px-3 py-1.5 mb-8">
+            <div className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+            <span className="text-[11px] font-black uppercase tracking-[0.15em] text-white">Limited slots — register now to secure your spot</span>
+          </div>
 
           {/* Description */}
           <div className="space-y-4 mb-8">
