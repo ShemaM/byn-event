@@ -138,13 +138,13 @@ export default function RegistrationPage() {
           {/* Description */}
           <div className="space-y-4 mb-8">
             <p className="text-sm text-white/80 leading-7">
-              The Banyamulenge Youth Network Kenya is hosting a casual event for young Banyamulenge people living in Kenya to meet, talk, share stories, and build friendships for the future. It is also a networking event for sharing opportunities and hearing testimonials.
+              The Banyamulenge Youth Network Kenya is bringing together young Banyamulenge people living in Kenya — for an afternoon of real conversations, shared stories, and meaningful connections. This is a space to network, hear testimonials from people on paths you may be walking yourself, and discover opportunities worth knowing about.
             </p>
             <p className="text-sm text-white/55 leading-7">
-              This form helps us see who is coming, what you are studying or working on, and what topics you want to discuss at the meetup.
+              This form helps us understand who is coming, what you are working on, and what conversations matter most to you — so we can make the most of the time together.
             </p>
             <p className="text-sm text-white/55 leading-7">
-              We will only use your details to plan the event, send you updates, and help the community stay connected.
+              Your details will only be used to plan the event, keep you updated, and help the community stay connected.
             </p>
           </div>
 
@@ -157,7 +157,7 @@ export default function RegistrationPage() {
                 <div>
                   <p className="text-xs font-black text-white uppercase tracking-wide mb-1">From Nairobi CBD</p>
                   <p className="text-xs text-white/60 leading-6">
-                    Take any <strong className="text-white/80">Thika Road matatu</strong> and alight at <strong className="text-white/80">Safari Park Hotel</strong>. From there take a <strong className="text-white/80">boda boda (KES 70)</strong> or <strong className="text-white/80">yellow van (KES 30)</strong> to the USIU gate, or walk.
+                    Take any <strong className="text-white/80">Thika Road matatu</strong> and alight at <strong className="text-white/80">Safari Park Hotel</strong>. From there, take a <strong className="text-white/80">boda boda (KES 70)</strong> or hop on the <strong className="text-white/80">yellow van (KES 30)</strong> — there is always one running from Safari Park bridge straight to the USIU gate.
                   </p>
                 </div>
               </div>
@@ -166,7 +166,7 @@ export default function RegistrationPage() {
                 <div>
                   <p className="text-xs font-black text-white uppercase tracking-wide mb-1">From Thika · Juja · Githurai · Kasarani</p>
                   <p className="text-xs text-white/60 leading-6">
-                    Board any matatu <strong className="text-white/80">towards Nairobi</strong> and alight at <strong className="text-white/80">Safari Park Hotel</strong>. Then take a <strong className="text-white/80">boda boda (KES 70)</strong> or <strong className="text-white/80">yellow van (KES 30)</strong> to USIU gate, or walk.
+                    Board any matatu <strong className="text-white/80">towards Nairobi</strong> and alight at <strong className="text-white/80">Safari Park Hotel</strong>. From there, take a <strong className="text-white/80">boda boda (KES 70)</strong> or hop on the <strong className="text-white/80">yellow van (KES 30)</strong> — there is always one running from Safari Park bridge straight to the USIU gate.
                   </p>
                 </div>
               </div>
