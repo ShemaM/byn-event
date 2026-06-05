@@ -110,7 +110,7 @@ export default function RegistrationPage() {
       <div className="flex flex-1 flex-col lg:flex-row">
 
         {/* ── LEFT PANEL: Event info ── */}
-        <div className="bg-[#1B4FBB] lg:w-[42%] lg:min-h-screen px-8 py-10 lg:px-12 lg:py-14 lg:sticky lg:top-0 lg:h-screen lg:overflow-y-auto order-2 lg:order-1">
+        <div className="bg-[#1B4FBB] lg:w-[42%] lg:min-h-screen px-8 py-10 lg:px-12 lg:py-14 lg:sticky lg:top-0 lg:h-screen lg:overflow-y-auto">
 
           {/* Logo + org */}
           <div className="flex items-center gap-4 mb-8">
@@ -222,7 +222,7 @@ export default function RegistrationPage() {
         </div>
 
         {/* ── RIGHT PANEL: Form ── */}
-        <div className="flex-1 px-6 py-10 lg:px-14 lg:py-14 max-w-2xl w-full order-1 lg:order-2">
+        <div className="flex-1 px-6 py-10 lg:px-14 lg:py-14 max-w-2xl w-full">
           <form onSubmit={handleSubmit} className="space-y-6">
 
             {/* Step 1 */}
