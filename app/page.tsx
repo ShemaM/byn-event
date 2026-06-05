@@ -15,7 +15,6 @@ type FormData = {
   dietaryRestrictions: string
   mpesaName: string
   mpesaPhone: string
-  mpesaCode: string
   consent: boolean
 }
 
@@ -30,7 +29,6 @@ const empty: FormData = {
   dietaryRestrictions: '',
   mpesaName: '',
   mpesaPhone: '',
-  mpesaCode: '',
   consent: false,
 }
 
@@ -39,6 +37,7 @@ const TEXTAREA = `${INPUT} min-h-[90px] resize-none`
 
 export default function RegistrationPage() {
   const [form, setForm] = useState<FormData>(empty)
+  const [mpesaScreenshot, setMpesaScreenshot] = useState<File | null>(null)
   const [step, setStep] = useState(1)
   const [submitting, setSubmitting] = useState(false)
   const [submitted, setSubmitted] = useState(false)
@@ -55,18 +54,19 @@ export default function RegistrationPage() {
 
   const canProceed1 = form.fullName && form.email
   const canProceed2 = form.currentPursuits && form.expectedGains && form.panelQuestions && form.activities.length > 0
-  const canSubmit = form.mpesaName && form.mpesaPhone && form.mpesaCode && form.consent
+  const canSubmit = form.mpesaName && form.mpesaPhone && mpesaScreenshot && form.consent
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setSubmitting(true)
     setError('')
     try {
-      const res = await fetch('/api/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
-      })
+      const body = new FormData()
+      Object.entries(form).forEach(([k, v]) =>
+        body.append(k, Array.isArray(v) ? v.join(', ') : String(v))
+      )
+      if (mpesaScreenshot) body.append('mpesaScreenshot', mpesaScreenshot)
+      const res = await fetch('/api/register', { method: 'POST', body })
       const json = await res.json()
       if (!res.ok) throw new Error(json.error || 'Something went wrong.')
       setSubmitted(true)
@@ -347,8 +347,7 @@ export default function RegistrationPage() {
                       <p className="text-sm font-bold mt-1" style={{ color: '#F5C518' }}>Amount: KES 500</p>
                     </div>
                     <p className="text-xs text-white/50 leading-6">
-                      After sending, you will receive an M-Pesa SMS with a transaction code (e.g.{' '}
-                      <span className="font-mono text-white/80">QJK1234ABC</span>). Enter it below.
+                      After sending, take a screenshot of the M-Pesa confirmation message and upload it below as proof of payment.
                     </p>
                   </div>
                 </div>
@@ -365,9 +364,32 @@ export default function RegistrationPage() {
                   <input type="tel" value={form.mpesaPhone} onChange={(e) => set('mpesaPhone', e.target.value)}
                     placeholder="e.g. 0712 345 678" className={INPUT} required />
                 </Field>
-                <Field label="M-Pesa confirmation code" required>
-                  <input type="text" value={form.mpesaCode} onChange={(e) => set('mpesaCode', e.target.value.toUpperCase())}
-                    placeholder="e.g. QJK1234ABC" className={`${INPUT} font-mono tracking-widest`} required />
+                <Field label="M-Pesa payment screenshot" required>
+                  <label className={`${INPUT} flex items-center gap-3 cursor-pointer`}>
+                    <div className="shrink-0 px-3 py-1.5 text-[11px] font-black uppercase tracking-wider text-white" style={{ background: '#1B4FBB' }}>
+                      {mpesaScreenshot ? 'Change' : 'Upload'}
+                    </div>
+                    <span className={`text-sm truncate ${mpesaScreenshot ? 'text-gray-800' : 'text-gray-400'}`}>
+                      {mpesaScreenshot ? mpesaScreenshot.name : 'Screenshot of your M-Pesa confirmation message'}
+                    </span>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      onChange={(e) => setMpesaScreenshot(e.target.files?.[0] ?? null)}
+                      required
+                    />
+                  </label>
+                  {mpesaScreenshot && (
+                    <div className="mt-2 border border-gray-200 p-1 inline-block">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={URL.createObjectURL(mpesaScreenshot)}
+                        alt="M-Pesa screenshot preview"
+                        className="max-h-40 object-contain"
+                      />
+                    </div>
+                  )}
                 </Field>
 
                 {/* Consent */}

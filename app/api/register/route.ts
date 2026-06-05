@@ -18,9 +18,7 @@ async function appendToSheet(row: string[]) {
     },
     scopes: ['https://www.googleapis.com/auth/spreadsheets'],
   })
-
   const sheets = google.sheets({ version: 'v4', auth })
-
   await sheets.spreadsheets.values.append({
     spreadsheetId: process.env.GOOGLE_SHEET_ID,
     range: 'Sheet1!A1',
@@ -30,28 +28,29 @@ async function appendToSheet(row: string[]) {
 }
 
 export async function POST(req: NextRequest) {
-  const data = await req.json()
+  const formData = await req.formData()
 
-  const {
-    fullName,
-    email,
-    organization,
-    currentPursuits,
-    expectedGains,
-    panelQuestions,
-    activities,
-    dietaryRestrictions,
-    mpesaName,
-    mpesaPhone,
-    mpesaCode,
-    consent,
-  } = data
+  const fullName = formData.get('fullName') as string
+  const email = formData.get('email') as string
+  const organization = formData.get('organization') as string
+  const currentPursuits = formData.get('currentPursuits') as string
+  const expectedGains = formData.get('expectedGains') as string
+  const panelQuestions = formData.get('panelQuestions') as string
+  const activities = formData.get('activities') as string
+  const dietaryRestrictions = formData.get('dietaryRestrictions') as string
+  const mpesaName = formData.get('mpesaName') as string
+  const mpesaPhone = formData.get('mpesaPhone') as string
+  const consent = formData.get('consent') as string
+  const screenshotFile = formData.get('mpesaScreenshot') as File | null
 
-  if (!fullName || !email || !mpesaCode || !mpesaName || !consent) {
+  if (!fullName || !email || !mpesaName || !mpesaPhone || !screenshotFile || consent !== 'true') {
     return NextResponse.json({ error: 'Missing required fields.' }, { status: 400 })
   }
 
-  const activitiesList = Array.isArray(activities) ? activities.join(', ') : activities || 'None selected'
+  // Convert screenshot to buffer for email attachment
+  const screenshotBuffer = Buffer.from(await screenshotFile.arrayBuffer())
+  const screenshotFilename = screenshotFile.name || 'mpesa-screenshot.jpg'
+
   const timestamp = new Date().toLocaleString('en-KE', { timeZone: 'Africa/Nairobi' })
 
   const confirmationHtml = `
@@ -60,7 +59,6 @@ export async function POST(req: NextRequest) {
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Registration Confirmed</title>
 </head>
 <body style="margin:0;padding:0;background:#f5f5f0;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">
   <table width="100%" cellpadding="0" cellspacing="0" style="background:#f5f5f0;padding:40px 20px;">
@@ -68,7 +66,6 @@ export async function POST(req: NextRequest) {
       <td align="center">
         <table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;">
 
-          <!-- Header -->
           <tr>
             <td style="background:#1B4FBB;padding:36px 40px 28px;">
               <table cellpadding="0" cellspacing="0" style="margin-bottom:20px;">
@@ -87,13 +84,11 @@ export async function POST(req: NextRequest) {
             </td>
           </tr>
 
-          <!-- Body -->
           <tr>
             <td style="background:#ffffff;padding:36px 40px;">
               <p style="margin:0 0 20px;font-size:15px;line-height:1.7;color:#333;">
                 Hi <strong>${fullName}</strong>, your registration for the <strong>BYN Kenya Youth Get-Together</strong> is confirmed. We're glad you're coming.
               </p>
-
               <table width="100%" cellpadding="0" cellspacing="0" style="background:#f8f8f5;border-left:3px solid #1B4FBB;margin:24px 0;">
                 <tr>
                   <td style="padding:20px 24px;">
@@ -102,13 +97,11 @@ export async function POST(req: NextRequest) {
                       <tr><td style="font-size:13px;color:#666;padding:4px 0;padding-right:16px;">Date</td><td style="font-size:13px;color:#111;font-weight:600;">Saturday, July 11, 2026</td></tr>
                       <tr><td style="font-size:13px;color:#666;padding:4px 0;padding-right:16px;">Venue</td><td style="font-size:13px;color:#111;font-weight:600;">USIU-Africa, Nairobi</td></tr>
                       <tr><td style="font-size:13px;color:#666;padding:4px 0;padding-right:16px;">Your name</td><td style="font-size:13px;color:#111;font-weight:600;">${fullName}</td></tr>
-                      <tr><td style="font-size:13px;color:#666;padding:4px 0;padding-right:16px;">M-Pesa ref</td><td style="font-size:13px;color:#111;font-weight:600;">${mpesaCode}</td></tr>
-                      <tr><td style="font-size:13px;color:#666;padding:4px 0;padding-right:16px;">Activities</td><td style="font-size:13px;color:#111;font-weight:600;">${activitiesList}</td></tr>
+                      <tr><td style="font-size:13px;color:#666;padding:4px 0;padding-right:16px;">Activities</td><td style="font-size:13px;color:#111;font-weight:600;">${activities || '—'}</td></tr>
                     </table>
                   </td>
                 </tr>
               </table>
-
               <p style="margin:0 0 12px;font-size:14px;line-height:1.7;color:#555;">
                 Keep this email as your proof of registration. Further details about the schedule and logistics will be sent to this address closer to the date.
               </p>
@@ -118,7 +111,6 @@ export async function POST(req: NextRequest) {
             </td>
           </tr>
 
-          <!-- Footer -->
           <tr>
             <td style="background:#1B4FBB;padding:24px 40px;">
               <p style="margin:0;font-size:12px;color:rgba(255,255,255,0.35);line-height:1.6;">
@@ -145,11 +137,11 @@ export async function POST(req: NextRequest) {
   <tr><td style="padding:6px 12px;background:#f0f0f0;font-weight:bold;">Current pursuits</td><td style="padding:6px 12px;">${currentPursuits}</td></tr>
   <tr><td style="padding:6px 12px;background:#f0f0f0;font-weight:bold;">Expected gains</td><td style="padding:6px 12px;">${expectedGains}</td></tr>
   <tr><td style="padding:6px 12px;background:#f0f0f0;font-weight:bold;">Panelist questions</td><td style="padding:6px 12px;">${panelQuestions}</td></tr>
-  <tr><td style="padding:6px 12px;background:#f0f0f0;font-weight:bold;">Activities</td><td style="padding:6px 12px;">${activitiesList}</td></tr>
+  <tr><td style="padding:6px 12px;background:#f0f0f0;font-weight:bold;">Activities</td><td style="padding:6px 12px;">${activities || '—'}</td></tr>
   <tr><td style="padding:6px 12px;background:#f0f0f0;font-weight:bold;">Dietary restrictions</td><td style="padding:6px 12px;">${dietaryRestrictions || '—'}</td></tr>
   <tr><td style="padding:6px 12px;background:#f0f0f0;font-weight:bold;">M-Pesa name</td><td style="padding:6px 12px;">${mpesaName}</td></tr>
   <tr><td style="padding:6px 12px;background:#f0f0f0;font-weight:bold;">M-Pesa phone</td><td style="padding:6px 12px;">${mpesaPhone}</td></tr>
-  <tr><td style="padding:6px 12px;background:#f0f0f0;font-weight:bold;">M-Pesa code</td><td style="padding:6px 12px;font-weight:bold;color:#1B4FBB;">${mpesaCode}</td></tr>
+  <tr><td style="padding:6px 12px;background:#f0f0f0;font-weight:bold;">Payment proof</td><td style="padding:6px 12px;">See attached screenshot</td></tr>
   <tr><td style="padding:6px 12px;background:#f0f0f0;font-weight:bold;">Submitted at</td><td style="padding:6px 12px;">${timestamp}</td></tr>
 </table>
 `
@@ -165,8 +157,14 @@ export async function POST(req: NextRequest) {
       transporter.sendMail({
         from: `"BYN Registration" <${process.env.GMAIL_USER}>`,
         to: 'opportunitiesbanyamulengeyouth@gmail.com',
-        subject: `New Registration: ${fullName} — M-Pesa ${mpesaCode}`,
+        subject: `New Registration: ${fullName} — Payment Screenshot Attached`,
         html: internalHtml,
+        attachments: [
+          {
+            filename: `${fullName.replace(/\s+/g, '_')}_mpesa_${screenshotFilename}`,
+            content: screenshotBuffer,
+          },
+        ],
       }),
       appendToSheet([
         timestamp,
@@ -176,13 +174,12 @@ export async function POST(req: NextRequest) {
         currentPursuits,
         expectedGains,
         panelQuestions,
-        activitiesList,
+        activities || '',
         dietaryRestrictions || '',
         mpesaName,
         mpesaPhone,
-        mpesaCode,
+        'Screenshot attached in email',
       ]),
-      // Column order: Timestamp | Full Name | Email | Organization | Current Pursuits | Expected Gains | Panelist Questions | Activities | Dietary Restrictions | M-Pesa Name | M-Pesa Phone | M-Pesa Code
     ])
 
     return NextResponse.json({ success: true })
