@@ -176,9 +176,12 @@ export default function RegistrationPage() {
                 From Safari Park Hotel, hop on the <strong className="text-white/75">yellow van (KES 30)</strong> or a <strong className="text-white/75">boda boda (KES 70)</strong> straight to the USIU gate — there is always one at the bridge. Prefer to walk? It is about <strong className="text-white/75">1.4 km</strong>.
               </p>
             </div>
-            <p className="mt-5 text-[10px] text-white/35 leading-5">
-              📍 Exit 7, USIU Road, Off Thika Rd · Google Maps: <span className="font-mono text-white/50">USIU-Africa Nairobi</span>
-            </p>
+            <div className="mt-4 border-t border-white/10 pt-4">
+              <p className="text-xs font-black text-white uppercase tracking-wide mb-1">Driving</p>
+              <p className="text-xs text-white/60 leading-6">
+                Take Thika Road and exit at <strong className="text-white/80">Exit 7, USIU Road</strong>. On Google Maps, search <span className="font-mono text-white/75">USIU-Africa Nairobi</span>.
+              </p>
+            </div>
           </div>
 
           {/* Progress */}
