@@ -129,11 +129,12 @@ export default function RegistrationPage() {
           <p className="text-[#F5C518] font-black text-xl mb-1">July 11, 2026</p>
           <p className="text-white/55 text-base mb-4">USIU-Africa, Nairobi</p>
 
-          {/* Limited slots badge */}
-          <div className="inline-flex items-center gap-2 bg-[#D72B2B] px-3 py-1.5 mb-8">
+          {/* Limited slots badge — scrolls to form on mobile */}
+          <a href="#register" className="lg:pointer-events-none inline-flex items-center gap-2 bg-[#D72B2B] px-3 py-1.5 mb-8 group">
             <div className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
             <span className="text-[11px] font-black uppercase tracking-[0.15em] text-white">Limited slots — register now to secure your spot</span>
-          </div>
+            <span className="lg:hidden text-white/70 text-[11px] font-black">↓</span>
+          </a>
 
           {/* Description */}
           <div className="space-y-4 mb-8">
@@ -223,7 +224,7 @@ export default function RegistrationPage() {
 
         {/* ── RIGHT PANEL: Form ── */}
         <div className="flex-1 px-6 py-10 lg:px-14 lg:py-14 max-w-2xl w-full">
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form id="register" onSubmit={handleSubmit} className="space-y-6">
 
             {/* Step 1 */}
             {step === 1 && (
