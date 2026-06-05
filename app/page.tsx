@@ -157,7 +157,7 @@ export default function RegistrationPage() {
                 <div>
                   <p className="text-xs font-black text-white uppercase tracking-wide mb-1">From Nairobi CBD</p>
                   <p className="text-xs text-white/60 leading-6">
-                    Take any <strong className="text-white/80">Thika Road matatu</strong> and alight at <strong className="text-white/80">Safari Park Hotel</strong>. From there, take a <strong className="text-white/80">boda boda (KES 70)</strong> or hop on the <strong className="text-white/80">yellow van (KES 30)</strong> — there is always one running from Safari Park bridge straight to the USIU gate. Prefer to walk? It is about <strong className="text-white/80">1.4 km</strong>.
+                    Take any <strong className="text-white/80">Thika Road matatu</strong> and alight at <strong className="text-white/80">Safari Park Hotel</strong>.
                   </p>
                 </div>
               </div>
@@ -166,10 +166,15 @@ export default function RegistrationPage() {
                 <div>
                   <p className="text-xs font-black text-white uppercase tracking-wide mb-1">From Thika · Juja · Githurai · Kasarani</p>
                   <p className="text-xs text-white/60 leading-6">
-                    Board any matatu <strong className="text-white/80">towards Nairobi</strong> and alight at <strong className="text-white/80">Safari Park Hotel</strong>. From there, take a <strong className="text-white/80">boda boda (KES 70)</strong> or hop on the <strong className="text-white/80">yellow van (KES 30)</strong> — there is always one running from Safari Park bridge straight to the USIU gate. Prefer to walk? It is about <strong className="text-white/80">1.4 km</strong>.
+                    Board any matatu <strong className="text-white/80">towards Nairobi</strong> and alight at <strong className="text-white/80">Safari Park Hotel</strong>.
                   </p>
                 </div>
               </div>
+            </div>
+            <div className="mt-4 border-t border-white/10 pt-4">
+              <p className="text-xs text-white/55 leading-6">
+                From Safari Park Hotel, hop on the <strong className="text-white/75">yellow van (KES 30)</strong> or a <strong className="text-white/75">boda boda (KES 70)</strong> straight to the USIU gate — there is always one at the bridge. Prefer to walk? It is about <strong className="text-white/75">1.4 km</strong>.
+              </p>
             </div>
             <p className="mt-5 text-[10px] text-white/35 leading-5">
               📍 Exit 7, USIU Road, Off Thika Rd · Google Maps: <span className="font-mono text-white/50">USIU-Africa Nairobi</span>
