@@ -15,6 +15,10 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Register — BYN Kenya Youth Get-Together, July 11 2026",
   description: "Register for the BYN Kenya Youth Get-Together on July 11, 2026 at USIU-Africa, Nairobi.",
+  icons: {
+    icon: '/logo.png',
+    apple: '/logo.png',
+  },
 };
 
 export default function RootLayout({
