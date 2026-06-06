@@ -178,7 +178,7 @@ export default function RegistrationPage() {
             </div>
             <div className="mt-4 border-t border-white/10 pt-4">
               <p className="text-xs text-white/55 leading-6">
-                From Safari Park Hotel, you can take a <strong className="text-white/75">boda boda (KES 70)</strong> to the USIU gate, or walk. The walk is about <strong className="text-white/75">1.4 km</strong>. Since our event is on a Saturday and the yellow van does not operate on weekends, we encourage you to come in a group so you can walk together. It is a good way to start the day.
+                From Safari Park Hotel, you can take a <strong className="text-white/75">boda boda (KES 70)</strong> to the USIU gate, or walk. The walk is about <strong className="text-white/75">1.4 km</strong>. We encourage you to come in a group so you can walk together. It is a good way to start the day.
               </p>
             </div>
             <div className="mt-4 border-t border-white/10 pt-4">
