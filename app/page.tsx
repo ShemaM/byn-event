@@ -116,40 +116,37 @@ export default function RegistrationPage() {
         {/* ── LEFT PANEL: Event info ── */}
         <div className="bg-[#1B4FBB] lg:w-[42%] lg:min-h-screen px-8 py-10 lg:px-12 lg:py-14 lg:sticky lg:top-0 lg:h-screen lg:overflow-y-auto">
 
-          {/* Logo + org */}
-          <div className="flex items-center gap-4 mb-8">
+          {/* Logo only */}
+          <div className="mb-8">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/logo.png" alt="Banyamulenge Youth Kenya" className="w-14 h-14 object-contain shrink-0" />
-            <div>
-              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-white/50">Banyamulenge Youth Network Kenya</p>
-              <p className="text-white font-bold text-sm mt-0.5">Event Registration</p>
-            </div>
+            <img src="/logo.png" alt="Banyamulenge Youth Kenya" className="w-16 h-16 object-contain" />
           </div>
 
           {/* Title */}
           <h1 className="text-4xl font-black text-white leading-tight mb-2">
-            Youth<br />Get-Together
+            Banyamulenge Youth<br />Get-Together
           </h1>
+          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-white/40 mb-4">Event Registration</p>
           <p className="text-[#F5C518] font-black text-xl mb-1">July 11, 2026</p>
           <p className="text-white/55 text-base mb-4">USIU-Africa, Nairobi</p>
 
-          {/* Limited slots badge — scrolls to form on mobile */}
-          <a href="#register" className="lg:pointer-events-none inline-flex items-center gap-2 bg-[#D72B2B] px-3 py-1.5 mb-8 group">
+          {/* Limited slots badge */}
+          <a href="#register" className="lg:pointer-events-none inline-flex items-center gap-2 bg-[#D72B2B] px-3 py-1.5 mb-8">
             <div className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-            <span className="text-[11px] font-black uppercase tracking-[0.15em] text-white">Limited slots — register now to secure your spot</span>
+            <span className="text-[11px] font-black uppercase tracking-[0.15em] text-white">Limited slots. Register now to secure your spot</span>
             <span className="lg:hidden text-white/70 text-[11px] font-black">↓</span>
           </a>
 
           {/* Description */}
-          <div className="space-y-4 mb-8">
+          <div className="space-y-3 mb-8">
             <p className="text-sm text-white/80 leading-7">
-              The Banyamulenge Youth Network Kenya is bringing together young Banyamulenge people living in Kenya — for an afternoon of real conversations, shared stories, and meaningful connections. This is a space to network, hear testimonials from people on paths you may be walking yourself, and discover opportunities worth knowing about.
+              BYN Kenya is organising a get-together for young Banyamulenge people living in Kenya. It is a chance to meet, talk, share stories and connect with others in the community. There will also be testimonials from people doing interesting things, and a chance to hear about and share opportunities.
             </p>
             <p className="text-sm text-white/55 leading-7">
-              This form helps us understand who is coming, what you are working on, and what conversations matter most to you — so we can make the most of the time together.
+              This form helps us know who is coming and what topics matter to you so we can plan well.
             </p>
             <p className="text-sm text-white/55 leading-7">
-              Your details will only be used to plan the event, keep you updated, and help the community stay connected.
+              We will only use your information to plan the event and keep you updated.
             </p>
           </div>
 
@@ -162,29 +159,29 @@ export default function RegistrationPage() {
                 <div>
                   <p className="text-xs font-black text-white uppercase tracking-wide mb-1">From Nairobi CBD</p>
                   <p className="text-xs text-white/60 leading-6">
-                    Take any <strong className="text-white/80">Thika Road matatu</strong> and alight at <strong className="text-white/80">Safari Park Hotel</strong>.
+                    Take any <strong className="text-white/80">Thika Road matatu</strong> and get off at <strong className="text-white/80">Safari Park Hotel</strong>.
                   </p>
                 </div>
               </div>
               <div className="flex gap-3">
                 <div className="mt-1.5 w-2 h-2 rounded-full bg-[#F5C518] shrink-0" />
                 <div>
-                  <p className="text-xs font-black text-white uppercase tracking-wide mb-1">From Thika · Juja · Githurai · Kasarani</p>
+                  <p className="text-xs font-black text-white uppercase tracking-wide mb-1">From Thika, Juja, Githurai or Kasarani</p>
                   <p className="text-xs text-white/60 leading-6">
-                    Board any matatu <strong className="text-white/80">towards Nairobi</strong> and alight at <strong className="text-white/80">Safari Park Hotel</strong>.
+                    Take any matatu <strong className="text-white/80">going towards Nairobi</strong> and get off at <strong className="text-white/80">Safari Park Hotel</strong>.
                   </p>
                 </div>
               </div>
             </div>
             <div className="mt-4 border-t border-white/10 pt-4">
               <p className="text-xs text-white/55 leading-6">
-                From Safari Park Hotel, hop on the <strong className="text-white/75">yellow van (KES 30)</strong> or a <strong className="text-white/75">boda boda (KES 70)</strong> straight to the USIU gate — there is always one at the bridge. Prefer to walk? It is about <strong className="text-white/75">1.4 km</strong>.
+                From Safari Park Hotel, take the <strong className="text-white/75">yellow van (KES 30)</strong> or a <strong className="text-white/75">boda boda (KES 70)</strong> to the USIU gate. There is always a yellow van at the bridge. If you want to walk, it is about <strong className="text-white/75">1.4 km</strong>.
               </p>
             </div>
             <div className="mt-4 border-t border-white/10 pt-4">
-              <p className="text-xs font-black text-white uppercase tracking-wide mb-1">Driving</p>
+              <p className="text-xs font-black text-white uppercase tracking-wide mb-1">If you are driving</p>
               <p className="text-xs text-white/60 leading-6">
-                Take Thika Road and exit at <strong className="text-white/80">Exit 7, USIU Road</strong>. On Google Maps, search <span className="font-mono text-white/75">USIU-Africa Nairobi</span>.
+                Take Thika Road and use <strong className="text-white/80">Exit 7, USIU Road</strong>. Search <span className="font-mono text-white/75">USIU-Africa Nairobi</span> on Google Maps.
               </p>
             </div>
           </div>
@@ -265,10 +262,10 @@ export default function RegistrationPage() {
                       <p className="text-[11px] font-black uppercase tracking-[0.18em] text-[#D72B2B]">No Entry Without Valid ID</p>
                     </div>
                     <p className="text-xs text-white/70 leading-6">
-                      USIU-Africa security requires a verified list of all visitors. You <strong className="text-white">must bring a physical copy</strong> of your ID on the day — your name will be ticked against the list at the gate. <strong className="text-white">No ID, no entry.</strong>
+                      USIU security requires all visitors to have a valid ID or passport. You must bring your physical ID on the day. Your name will be checked against our list at the gate. <strong className="text-white">No ID means no entry.</strong>
                     </p>
                     <p className="text-xs text-white/50 leading-6 mt-2">
-                      Accepted documents: <span className="text-white/75">Alien Card (Refugee ID) · Passport · National ID · Proof of Registration · Mandate · Any government-issued document with your name and photo.</span>
+                      Accepted: Alien Card (Refugee ID), Passport, National ID, Proof of Registration, Mandate, or any other government-issued document with your name and photo.
                     </p>
                   </div>
                 </div>
