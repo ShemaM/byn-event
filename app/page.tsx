@@ -128,7 +128,7 @@ export default function RegistrationPage() {
           </h1>
           <p className="text-[10px] font-black uppercase tracking-[0.18em] text-white/40 mb-4">Event Registration</p>
           <p className="text-[#F5C518] font-black text-xl mb-1">July 11, 2026</p>
-          <p className="text-white/55 text-base mb-4">USIU-Africa, Nairobi</p>
+          <p className="text-white/55 text-base mb-4">Venue: USIU-Africa, Nairobi</p>
 
           {/* Limited slots badge */}
           <a href="#register" className="lg:pointer-events-none inline-flex items-center gap-2 bg-[#D72B2B] px-3 py-1.5 mb-8">
