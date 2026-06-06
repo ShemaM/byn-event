@@ -182,7 +182,7 @@ export default function RegistrationPage() {
               </p>
             </div>
             <div className="mt-4 border-t border-white/10 pt-4">
-              <p className="text-xs font-black text-white uppercase tracking-wide mb-1">If you are driving</p>
+              <p className="text-xs font-black text-white uppercase tracking-wide mb-1">If you are driving from Nairobi</p>
               <p className="text-xs text-white/60 leading-6">
                 Take Thika Road and use <strong className="text-white/80">Exit 7, USIU Road</strong>. Search <span className="font-mono text-white/75">USIU-Africa Nairobi</span> on Google Maps.
               </p>
