@@ -7,6 +7,8 @@ const ACTIVITIES = ['Poetry', 'Dance Challenges', 'Drawing Sessions', 'Printed C
 type FormData = {
   fullName: string
   email: string
+  idType: string
+  idNumber: string
   organization: string
   currentPursuits: string
   expectedGains: string
@@ -21,6 +23,8 @@ type FormData = {
 const empty: FormData = {
   fullName: '',
   email: '',
+  idType: '',
+  idNumber: '',
   organization: '',
   currentPursuits: '',
   expectedGains: '',
@@ -52,7 +56,7 @@ export default function RegistrationPage() {
   const next = () => { setStep((s) => s + 1); window.scrollTo({ top: 0, behavior: 'smooth' }) }
   const back = () => { setStep((s) => s - 1); window.scrollTo({ top: 0, behavior: 'smooth' }) }
 
-  const canProceed1 = form.fullName && form.email
+  const canProceed1 = form.fullName && form.email && form.idType && form.idNumber
   const canProceed2 = form.currentPursuits && form.expectedGains && form.panelQuestions && form.activities.length > 0
   const canSubmit = form.mpesaName && form.mpesaPhone && mpesaScreenshot && form.consent
 
@@ -249,6 +253,46 @@ export default function RegistrationPage() {
                 <Field label="Organization / School" hint="Optional">
                   <input type="text" value={form.organization} onChange={(e) => set('organization', e.target.value)}
                     placeholder="Where you study or work" className={INPUT} />
+                </Field>
+
+                <div className="overflow-hidden">
+                  <div className="h-1" style={{ background: 'linear-gradient(to right, #D72B2B, #F5C518, #1B4FBB)' }} />
+                  <div className="bg-[#0f1a2e] p-4">
+                    <div className="flex items-center gap-2 mb-2">
+                      <svg className="w-4 h-4 text-[#D72B2B] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" />
+                      </svg>
+                      <p className="text-[11px] font-black uppercase tracking-[0.18em] text-[#D72B2B]">No Entry Without Valid ID</p>
+                    </div>
+                    <p className="text-xs text-white/70 leading-6">
+                      USIU-Africa security requires a verified list of all visitors. You <strong className="text-white">must bring a physical copy</strong> of your ID on the day — your name will be ticked against the list at the gate. <strong className="text-white">No ID, no entry.</strong>
+                    </p>
+                    <p className="text-xs text-white/50 leading-6 mt-2">
+                      Accepted documents: <span className="text-white/75">Alien Card (Refugee ID) · Passport · National ID · Proof of Registration · Mandate · Any government-issued document with your name and photo.</span>
+                    </p>
+                  </div>
+                </div>
+
+                <Field label="ID / Document type" required>
+                  <select
+                    value={form.idType}
+                    onChange={(e) => set('idType', e.target.value)}
+                    className={INPUT}
+                    required
+                  >
+                    <option value="">Select your document type</option>
+                    <option value="Alien Card (Refugee ID)">Alien Card (Refugee ID)</option>
+                    <option value="Passport">Passport</option>
+                    <option value="National ID">National ID</option>
+                    <option value="Proof of Registration">Proof of Registration</option>
+                    <option value="Mandate">Mandate</option>
+                    <option value="Other Government-Issued ID">Other Government-Issued ID</option>
+                  </select>
+                </Field>
+
+                <Field label="ID / Document number" hint="Exactly as it appears on the document" required>
+                  <input type="text" value={form.idNumber} onChange={(e) => set('idNumber', e.target.value)}
+                    placeholder="e.g. A1234567" className={`${INPUT} font-mono tracking-wider`} required />
                 </Field>
                 <button type="button" onClick={next} disabled={!canProceed1}
                   className="w-full py-4 text-sm font-black uppercase tracking-[0.12em] text-white disabled:opacity-40 transition-colors mt-4"

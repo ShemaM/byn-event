@@ -32,6 +32,8 @@ export async function POST(req: NextRequest) {
 
   const fullName = formData.get('fullName') as string
   const email = formData.get('email') as string
+  const idType = formData.get('idType') as string
+  const idNumber = formData.get('idNumber') as string
   const organization = formData.get('organization') as string
   const currentPursuits = formData.get('currentPursuits') as string
   const expectedGains = formData.get('expectedGains') as string
@@ -43,7 +45,7 @@ export async function POST(req: NextRequest) {
   const consent = formData.get('consent') as string
   const screenshotFile = formData.get('mpesaScreenshot') as File | null
 
-  if (!fullName || !email || !mpesaName || !mpesaPhone || !screenshotFile || consent !== 'true') {
+  if (!fullName || !email || !idType || !idNumber || !mpesaName || !mpesaPhone || !screenshotFile || consent !== 'true') {
     return NextResponse.json({ error: 'Missing required fields.' }, { status: 400 })
   }
 
@@ -133,6 +135,8 @@ export async function POST(req: NextRequest) {
 <table style="border-collapse:collapse;font-family:sans-serif;font-size:14px;">
   <tr><td style="padding:6px 12px;background:#f0f0f0;font-weight:bold;">Full name</td><td style="padding:6px 12px;">${fullName}</td></tr>
   <tr><td style="padding:6px 12px;background:#f0f0f0;font-weight:bold;">Email</td><td style="padding:6px 12px;">${email}</td></tr>
+  <tr><td style="padding:6px 12px;background:#f0f0f0;font-weight:bold;">ID type</td><td style="padding:6px 12px;">${idType}</td></tr>
+  <tr><td style="padding:6px 12px;background:#f0f0f0;font-weight:bold;">ID number</td><td style="padding:6px 12px;font-family:monospace;font-weight:bold;">${idNumber}</td></tr>
   <tr><td style="padding:6px 12px;background:#f0f0f0;font-weight:bold;">Organization</td><td style="padding:6px 12px;">${organization || '—'}</td></tr>
   <tr><td style="padding:6px 12px;background:#f0f0f0;font-weight:bold;">Current pursuits</td><td style="padding:6px 12px;">${currentPursuits}</td></tr>
   <tr><td style="padding:6px 12px;background:#f0f0f0;font-weight:bold;">Expected gains</td><td style="padding:6px 12px;">${expectedGains}</td></tr>
@@ -170,6 +174,8 @@ export async function POST(req: NextRequest) {
         timestamp,
         fullName,
         email,
+        idType,
+        idNumber,
         organization || '',
         currentPursuits,
         expectedGains,
