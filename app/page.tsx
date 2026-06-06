@@ -128,7 +128,10 @@ export default function RegistrationPage() {
           </h1>
           <p className="text-[10px] font-black uppercase tracking-[0.18em] text-white/40 mb-4">Event Registration</p>
           <p className="text-[#F5C518] font-black text-xl mb-1">July 11, 2026</p>
-          <p className="text-white/55 text-base mb-4">Venue: USIU-Africa, Nairobi</p>
+          <div className="flex items-center gap-2 mb-4">
+            <span className="text-[10px] font-black uppercase tracking-[0.15em] text-white/40">Venue</span>
+            <span className="text-white/70 text-sm">USIU-Africa, Nairobi</span>
+          </div>
 
           {/* Limited slots badge */}
           <a href="#register" className="lg:pointer-events-none inline-flex items-center gap-2 bg-[#D72B2B] px-3 py-1.5 mb-8">
@@ -175,7 +178,7 @@ export default function RegistrationPage() {
             </div>
             <div className="mt-4 border-t border-white/10 pt-4">
               <p className="text-xs text-white/55 leading-6">
-                From Safari Park Hotel, take the <strong className="text-white/75">yellow van (KES 30)</strong> or a <strong className="text-white/75">boda boda (KES 70)</strong> to the USIU gate. There is always a yellow van at the bridge. If you want to walk, it is about <strong className="text-white/75">1.4 km</strong>.
+                From Safari Park Hotel, you can take a <strong className="text-white/75">boda boda (KES 70)</strong> to the USIU gate, or walk. The walk is about <strong className="text-white/75">1.4 km</strong>. Since our event is on a Saturday and the yellow van does not operate on weekends, we encourage you to come in a group so you can walk together. It is a good way to start the day.
               </p>
             </div>
             <div className="mt-4 border-t border-white/10 pt-4">
