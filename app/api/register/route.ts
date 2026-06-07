@@ -54,8 +54,10 @@ export async function POST(req: NextRequest) {
   const screenshotFilename = screenshotFile.name || 'mpesa-screenshot.jpg'
 
   const timestamp = new Date().toLocaleString('en-KE', { timeZone: 'Africa/Nairobi' })
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://byn-event.vercel.app'
+  const approveUrl = `${baseUrl}/api/approve?email=${encodeURIComponent(email)}&name=${encodeURIComponent(fullName)}&activities=${encodeURIComponent(activities || '')}`
 
-  const confirmationHtml = `
+  const pendingHtml = `
 <!DOCTYPE html>
 <html>
 <head>
@@ -81,31 +83,18 @@ export async function POST(req: NextRequest) {
                   </td>
                 </tr>
               </table>
-              <h1 style="margin:0;font-size:26px;font-weight:800;color:#ffffff;line-height:1.2;">You're registered.</h1>
-              <p style="margin:8px 0 0;font-size:14px;color:rgba(255,255,255,0.55);">Youth Get-Together · July 11, 2026 · USIU-Africa, Nairobi</p>
+              <h1 style="margin:0;font-size:26px;font-weight:800;color:#ffffff;line-height:1.2;">We got your registration.</h1>
+              <p style="margin:8px 0 0;font-size:14px;color:rgba(255,255,255,0.55);">Youth Get-Together &middot; July 11, 2026 &middot; USIU-Africa, Nairobi</p>
             </td>
           </tr>
 
           <tr>
             <td style="background:#ffffff;padding:36px 40px;">
-              <p style="margin:0 0 20px;font-size:15px;line-height:1.7;color:#333;">
-                Hi <strong>${fullName}</strong>, your registration for the <strong>BYN Kenya Youth Get-Together</strong> is confirmed. We're glad you're coming.
+              <p style="margin:0 0 16px;font-size:15px;line-height:1.7;color:#333;">
+                Hi <strong>${fullName}</strong>, thank you for registering. We have received your details and your payment screenshot.
               </p>
-              <table width="100%" cellpadding="0" cellspacing="0" style="background:#f8f8f5;border-left:3px solid #1B4FBB;margin:24px 0;">
-                <tr>
-                  <td style="padding:20px 24px;">
-                    <p style="margin:0 0 14px;font-size:10px;font-weight:900;letter-spacing:0.18em;text-transform:uppercase;color:#999;">Event Details</p>
-                    <table cellpadding="0" cellspacing="0">
-                      <tr><td style="font-size:13px;color:#666;padding:4px 0;padding-right:16px;">Date</td><td style="font-size:13px;color:#111;font-weight:600;">Saturday, July 11, 2026</td></tr>
-                      <tr><td style="font-size:13px;color:#666;padding:4px 0;padding-right:16px;">Venue</td><td style="font-size:13px;color:#111;font-weight:600;">USIU-Africa, Nairobi</td></tr>
-                      <tr><td style="font-size:13px;color:#666;padding:4px 0;padding-right:16px;">Your name</td><td style="font-size:13px;color:#111;font-weight:600;">${fullName}</td></tr>
-                      <tr><td style="font-size:13px;color:#666;padding:4px 0;padding-right:16px;">Activities</td><td style="font-size:13px;color:#111;font-weight:600;">${activities || '—'}</td></tr>
-                    </table>
-                  </td>
-                </tr>
-              </table>
-              <p style="margin:0 0 12px;font-size:14px;line-height:1.7;color:#555;">
-                Keep this email as your proof of registration. Further details about the schedule and logistics will be sent to this address closer to the date.
+              <p style="margin:0 0 16px;font-size:14px;line-height:1.7;color:#555;">
+                Our team will review your payment and confirm your spot shortly. You will get another email once that is done.
               </p>
               <p style="margin:0;font-size:14px;line-height:1.7;color:#555;">
                 If you have any questions, reply to this email.
@@ -116,8 +105,7 @@ export async function POST(req: NextRequest) {
           <tr>
             <td style="background:#1B4FBB;padding:24px 40px;">
               <p style="margin:0;font-size:12px;color:rgba(255,255,255,0.35);line-height:1.6;">
-                BYN Kenya — Banyamulenge Youth Network Kenya<br />
-                This is an automated confirmation. Please keep it for your records.
+                BYN Kenya &mdash; Banyamulenge Youth Network Kenya
               </p>
             </td>
           </tr>
@@ -131,23 +119,31 @@ export async function POST(req: NextRequest) {
 `
 
   const internalHtml = `
-<h2>New Registration: ${fullName}</h2>
-<table style="border-collapse:collapse;font-family:sans-serif;font-size:14px;">
-  <tr><td style="padding:6px 12px;background:#f0f0f0;font-weight:bold;">Full name</td><td style="padding:6px 12px;">${fullName}</td></tr>
-  <tr><td style="padding:6px 12px;background:#f0f0f0;font-weight:bold;">Email</td><td style="padding:6px 12px;">${email}</td></tr>
-  <tr><td style="padding:6px 12px;background:#f0f0f0;font-weight:bold;">ID type</td><td style="padding:6px 12px;">${idType}</td></tr>
-  <tr><td style="padding:6px 12px;background:#f0f0f0;font-weight:bold;">ID number</td><td style="padding:6px 12px;font-family:monospace;font-weight:bold;">${idNumber}</td></tr>
-  <tr><td style="padding:6px 12px;background:#f0f0f0;font-weight:bold;">Organization</td><td style="padding:6px 12px;">${organization || '—'}</td></tr>
-  <tr><td style="padding:6px 12px;background:#f0f0f0;font-weight:bold;">Current pursuits</td><td style="padding:6px 12px;">${currentPursuits}</td></tr>
-  <tr><td style="padding:6px 12px;background:#f0f0f0;font-weight:bold;">Expected gains</td><td style="padding:6px 12px;">${expectedGains}</td></tr>
-  <tr><td style="padding:6px 12px;background:#f0f0f0;font-weight:bold;">Panelist questions</td><td style="padding:6px 12px;">${panelQuestions}</td></tr>
-  <tr><td style="padding:6px 12px;background:#f0f0f0;font-weight:bold;">Activities</td><td style="padding:6px 12px;">${activities || '—'}</td></tr>
-  <tr><td style="padding:6px 12px;background:#f0f0f0;font-weight:bold;">Dietary restrictions</td><td style="padding:6px 12px;">${dietaryRestrictions || '—'}</td></tr>
-  <tr><td style="padding:6px 12px;background:#f0f0f0;font-weight:bold;">M-Pesa name</td><td style="padding:6px 12px;">${mpesaName}</td></tr>
-  <tr><td style="padding:6px 12px;background:#f0f0f0;font-weight:bold;">M-Pesa phone</td><td style="padding:6px 12px;">${mpesaPhone}</td></tr>
-  <tr><td style="padding:6px 12px;background:#f0f0f0;font-weight:bold;">Payment proof</td><td style="padding:6px 12px;">See attached screenshot</td></tr>
-  <tr><td style="padding:6px 12px;background:#f0f0f0;font-weight:bold;">Submitted at</td><td style="padding:6px 12px;">${timestamp}</td></tr>
-</table>
+<div style="font-family:sans-serif;max-width:600px;">
+  <h2 style="color:#1B4FBB;">New Registration: ${fullName}</h2>
+  <table style="border-collapse:collapse;font-size:14px;width:100%;">
+    <tr><td style="padding:6px 12px;background:#f0f0f0;font-weight:bold;">Full name</td><td style="padding:6px 12px;">${fullName}</td></tr>
+    <tr><td style="padding:6px 12px;background:#f0f0f0;font-weight:bold;">Email</td><td style="padding:6px 12px;">${email}</td></tr>
+    <tr><td style="padding:6px 12px;background:#f0f0f0;font-weight:bold;">ID type</td><td style="padding:6px 12px;">${idType}</td></tr>
+    <tr><td style="padding:6px 12px;background:#f0f0f0;font-weight:bold;">ID number</td><td style="padding:6px 12px;font-family:monospace;font-weight:bold;">${idNumber}</td></tr>
+    <tr><td style="padding:6px 12px;background:#f0f0f0;font-weight:bold;">Organization</td><td style="padding:6px 12px;">${organization || '—'}</td></tr>
+    <tr><td style="padding:6px 12px;background:#f0f0f0;font-weight:bold;">Current pursuits</td><td style="padding:6px 12px;">${currentPursuits}</td></tr>
+    <tr><td style="padding:6px 12px;background:#f0f0f0;font-weight:bold;">Expected gains</td><td style="padding:6px 12px;">${expectedGains}</td></tr>
+    <tr><td style="padding:6px 12px;background:#f0f0f0;font-weight:bold;">Panelist questions</td><td style="padding:6px 12px;">${panelQuestions}</td></tr>
+    <tr><td style="padding:6px 12px;background:#f0f0f0;font-weight:bold;">Activities</td><td style="padding:6px 12px;">${activities || '—'}</td></tr>
+    <tr><td style="padding:6px 12px;background:#f0f0f0;font-weight:bold;">Dietary restrictions</td><td style="padding:6px 12px;">${dietaryRestrictions || '—'}</td></tr>
+    <tr><td style="padding:6px 12px;background:#f0f0f0;font-weight:bold;">M-Pesa name</td><td style="padding:6px 12px;">${mpesaName}</td></tr>
+    <tr><td style="padding:6px 12px;background:#f0f0f0;font-weight:bold;">M-Pesa phone</td><td style="padding:6px 12px;">${mpesaPhone}</td></tr>
+    <tr><td style="padding:6px 12px;background:#f0f0f0;font-weight:bold;">Payment proof</td><td style="padding:6px 12px;">See attached screenshot</td></tr>
+    <tr><td style="padding:6px 12px;background:#f0f0f0;font-weight:bold;">Submitted at</td><td style="padding:6px 12px;">${timestamp}</td></tr>
+  </table>
+  <div style="margin-top:24px;padding:20px;background:#f8f8f5;border-left:4px solid #1B4FBB;">
+    <p style="margin:0 0 12px;font-size:13px;color:#555;">Once you have verified the payment screenshot, click the button below to confirm this registration. The user will receive their confirmation email instantly.</p>
+    <a href="${approveUrl}" style="display:inline-block;background:#1B4FBB;color:#ffffff;padding:12px 28px;font-size:14px;font-weight:900;text-decoration:none;letter-spacing:0.05em;">
+      Approve Registration
+    </a>
+  </div>
+</div>
 `
 
   try {
@@ -155,8 +151,8 @@ export async function POST(req: NextRequest) {
       transporter.sendMail({
         from: `"Banyamulenge Youth Network Kenya" <${process.env.GMAIL_USER}>`,
         to: email,
-        subject: 'Registration Confirmed — BYN Kenya Youth Get-Together, July 11',
-        html: confirmationHtml,
+        subject: 'We received your registration — BYN Kenya Youth Get-Together, July 11',
+        html: pendingHtml,
       }),
       transporter.sendMail({
         from: `"BYN Registration" <${process.env.GMAIL_USER}>`,
