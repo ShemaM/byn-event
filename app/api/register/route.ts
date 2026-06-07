@@ -138,10 +138,18 @@ export async function POST(req: NextRequest) {
     <tr><td style="padding:6px 12px;background:#f0f0f0;font-weight:bold;">Submitted at</td><td style="padding:6px 12px;">${timestamp}</td></tr>
   </table>
   <div style="margin-top:24px;padding:20px;background:#f8f8f5;border-left:4px solid #1B4FBB;">
-    <p style="margin:0 0 12px;font-size:13px;color:#555;">Once you have verified the payment screenshot, click the button below to confirm this registration. The user will receive their confirmation email instantly.</p>
-    <a href="${approveUrl}" style="display:inline-block;background:#1B4FBB;color:#ffffff;padding:12px 28px;font-size:14px;font-weight:900;text-decoration:none;letter-spacing:0.05em;">
-      Approve Registration
-    </a>
+    <p style="margin:0 0 16px;font-size:13px;color:#555;">Once you have verified the payment screenshot, click the button below to confirm this registration. The user will receive their confirmation email instantly.</p>
+    <table cellpadding="0" cellspacing="0" style="margin-bottom:16px;">
+      <tr>
+        <td style="background:#1B4FBB;padding:14px 32px;">
+          <a href="${approveUrl}" style="color:#ffffff;font-size:14px;font-weight:900;text-decoration:none;font-family:sans-serif;display:block;">
+            ✓ Approve Registration
+          </a>
+        </td>
+      </tr>
+    </table>
+    <p style="margin:0;font-size:11px;color:#999;">If the button does not work, copy and paste this link into your browser:<br/>
+    <a href="${approveUrl}" style="color:#1B4FBB;word-break:break-all;">${approveUrl}</a></p>
   </div>
 </div>
 `
