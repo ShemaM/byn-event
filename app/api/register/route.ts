@@ -94,7 +94,7 @@ export async function POST(req: NextRequest) {
                 Hi <strong>${fullName}</strong>, thank you for registering. We have received your details and your payment screenshot.
               </p>
               <p style="margin:0 0 16px;font-size:14px;line-height:1.7;color:#555;">
-                Our team will review your payment and confirm your spot shortly. You will get another email once that is done.
+                The organizing committee will review your payment and confirm your spot shortly. You will get another email once that is done.
               </p>
               <p style="margin:0;font-size:14px;line-height:1.7;color:#555;">
                 If you have any questions, reply to this email.

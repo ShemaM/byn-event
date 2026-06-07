@@ -122,7 +122,7 @@ export default function RegistrationPage() {
             We have sent an email to <strong className="text-gray-800">{form.email}</strong>.
           </p>
           <p className="text-sm text-gray-500 leading-7">
-            Our team will review your payment and confirm your spot shortly.
+            The organizing committee will review your payment and confirm your spot shortly.
           </p>
           <div className="mt-8 h-1.5 w-full" style={{ background: 'linear-gradient(to right, #D72B2B 33%, #F5C518 33%, #F5C518 66%, #1B4FBB 66%)' }} />
         </div>
