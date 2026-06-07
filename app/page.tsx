@@ -1,6 +1,28 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+
+function useCountdown(target: Date) {
+  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 })
+
+  useEffect(() => {
+    function calc() {
+      const diff = target.getTime() - Date.now()
+      if (diff <= 0) return setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 })
+      setTimeLeft({
+        days: Math.floor(diff / (1000 * 60 * 60 * 24)),
+        hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
+        minutes: Math.floor((diff / (1000 * 60)) % 60),
+        seconds: Math.floor((diff / 1000) % 60),
+      })
+    }
+    calc()
+    const id = setInterval(calc, 1000)
+    return () => clearInterval(id)
+  }, [target])
+
+  return timeLeft
+}
 
 const ACTIVITIES = ['Poetry', 'Dance Challenges', 'Drawing Sessions', 'Printed Cards Activity', 'General Audience']
 
@@ -39,7 +61,10 @@ const empty: FormData = {
 const INPUT = 'w-full border border-gray-300 px-4 py-3 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-[#1B4FBB] focus:ring-1 focus:ring-[#1B4FBB] transition-colors bg-white'
 const TEXTAREA = `${INPUT} min-h-[90px] resize-none`
 
+const EVENT_DATE = new Date('2026-07-11T09:00:00+03:00')
+
 export default function RegistrationPage() {
+  const countdown = useCountdown(EVENT_DATE)
   const [form, setForm] = useState<FormData>(empty)
   const [mpesaScreenshot, setMpesaScreenshot] = useState<File | null>(null)
   const [step, setStep] = useState(1)
@@ -131,6 +156,21 @@ export default function RegistrationPage() {
           <div className="flex items-center gap-2 mb-4">
             <span className="text-[10px] font-black uppercase tracking-[0.15em] text-white/40">Venue</span>
             <span className="text-white/70 text-sm">USIU-Africa, Nairobi</span>
+          </div>
+
+          {/* Countdown */}
+          <div className="grid grid-cols-4 gap-2 mb-6">
+            {[
+              { label: 'Days', value: countdown.days },
+              { label: 'Hours', value: countdown.hours },
+              { label: 'Mins', value: countdown.minutes },
+              { label: 'Secs', value: countdown.seconds },
+            ].map(({ label, value }) => (
+              <div key={label} className="bg-white/10 border border-white/15 text-center py-3">
+                <p className="text-2xl font-black text-white leading-none">{String(value).padStart(2, '0')}</p>
+                <p className="text-[9px] font-bold uppercase tracking-[0.15em] text-white/40 mt-1">{label}</p>
+              </div>
+            ))}
           </div>
 
           {/* Limited slots badge */}
