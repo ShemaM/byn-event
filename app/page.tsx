@@ -413,7 +413,7 @@ export default function RegistrationPage() {
                     <p className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400">Step 3 — Event Contribution</p>
                   </div>
                   <p className="text-sm text-gray-500 leading-7">
-                    To ensure accessibility, a <strong className="text-gray-700">KES 500 per person</strong> contribution is requested to cover catering and refreshments, made possible by the organizing committee and sponsors. Please send your contribution to <strong className="text-gray-700">Kibonge Buhimba</strong> to secure your spot and aid in finalizing catering arrangements.
+                    To ensure accessibility, a <strong className="text-gray-700">KES 500 per person</strong> contribution is requested to cover catering and refreshments, made possible by the organizing committee and sponsors. Please send your contribution to <strong className="text-gray-700">Shema Nzabakamira</strong> via <strong className="text-gray-700">Pochi la Biashara</strong> to secure your spot and aid in finalizing catering arrangements.
                   </p>
                 </div>
 
@@ -421,14 +421,15 @@ export default function RegistrationPage() {
                 <div className="overflow-hidden mb-2">
                   <div className="h-1" style={{ background: 'linear-gradient(to right, #D72B2B, #F5C518, #1B4FBB)' }} />
                   <div className="bg-[#1B4FBB] text-white p-6">
-                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#F5C518] mb-3">M-Pesa Payment</p>
+                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#F5C518] mb-3">Pochi la Biashara Payment</p>
                     <p className="text-sm text-white/75 leading-7 mb-4">
-                      Send <strong className="text-[#F5C518]">KES 500</strong> via M-Pesa to the number below, then fill in your details.
+                      Send <strong className="text-[#F5C518]">KES 500</strong> via <strong className="text-white">Pochi la Biashara</strong> to the number below. On your M-Pesa menu, go to <strong className="text-white/80">Lipa na M-Pesa &rarr; Pochi la Biashara</strong>, enter the number and send KES 500.
                     </p>
                     <div className="border border-white/20 bg-white/10 px-5 py-4 mb-4">
-                      <p className="text-[10px] text-white/50 uppercase tracking-wider mb-1">Send to</p>
-                      <p className="text-3xl font-black text-white tracking-wide">+254 799 978876</p>
-                      <p className="text-sm font-bold mt-1" style={{ color: '#F5C518' }}>Amount: KES 500</p>
+                      <p className="text-[10px] text-white/50 uppercase tracking-wider mb-1">Pochi la Biashara — Send to</p>
+                      <p className="text-3xl font-black text-white tracking-wide">0792 732177</p>
+                      <p className="text-xs text-white/50 mt-1">Name: <strong className="text-white/80">Shema Nzabakamira</strong></p>
+                      <p className="text-sm font-bold mt-2" style={{ color: '#F5C518' }}>Amount: KES 500</p>
                     </div>
                     <p className="text-xs text-white/50 leading-6">
                       After sending, take a screenshot of the M-Pesa confirmation message and upload it below as proof of payment.
